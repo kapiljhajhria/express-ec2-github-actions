@@ -32,5 +32,17 @@ jobs:
       - name: install session manager plugin
         run: sudo apt-get install session-manager-plugin
 
-      - name: connect to ec2 instance
-        run: aws ssm start-session --target i-00361acfa83e97bfe
+      - name: AWS SSM Send-Command
+        uses: peterkimzz/aws-ssm-send-command@master
+        id: ssm
+        with:
+          aws-region: ap-south-1
+          aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
+          instance-ids: i-00361acfa83e97bfe
+          document-name: AWS-RunShellScript
+          comment: "Run a shell script"
+          parameters: |
+            commands:
+              - "sudo su -i ec2-user"
+              - "ls -l"
