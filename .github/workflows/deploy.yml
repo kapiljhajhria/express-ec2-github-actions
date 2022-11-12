@@ -46,5 +46,6 @@ jobs:
           aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
           instance-ids: i-00361acfa83e97bfe
-          comment: "Run a shell script"
+          working-directory: /home/ec2-user
           command: "ls -la"
+          comment: "Run a shell script"
