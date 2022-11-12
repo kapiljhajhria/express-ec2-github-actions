@@ -43,26 +43,26 @@ jobs:
           echo $AWS_SECRET_ACCESS_KEY
           echo $AWS_SESSION_TOKEN
 
-#      - name: AWS SSM Send-Command
-#        uses: peterkimzz/aws-ssm-send-command@master
-#        id: ssm
-#        with:
-#          aws-region: ap-south-1
-#          aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
-#          aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
-#          instance-ids: i-00361acfa83e97bfe
-#          working-directory: /home/ec2-user
-#          comment: Blue/Green Deployment executed by Github Actions
-#          command: /bin/bash echo "Hello World"
-
-      - name: Run aws ssm send-command
-        uses: nohmad/aws-ssm-send-command-action@master
+      - name: AWS SSM Send-Command
+        uses: peterkimzz/aws-ssm-send-command@master
+        id: ssm
         with:
+          aws-region: ap-south-1
           aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
-          aws-region: ap-south-1
-          targets: |
-            [{"Key":"InstanceIds","Values":["i-00361acfa83e97bfe"]}]
-          document-name: AWS-RunShellScript
-          parameters: |
-            {"commands":["uname -a"]}
+          instance-ids: i-00361acfa83e97bfe
+          working-directory: /home/ec2-user
+          comment: Blue/Green Deployment executed by Github Actions
+          command: /bin/bash echo "Hello World"
+
+#      - name: Run aws ssm send-command
+#        uses: nohmad/aws-ssm-send-command-action@master
+#        with:
+#          aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
+#          aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
+#          aws-region: ap-south-1
+#          targets: |
+#            [{"Key":"InstanceIds","Values":["i-00361acfa83e97bfe"]}]
+#          document-name: AWS-RunShellScript
+#          parameters: |
+#            {"commands":["uname -a"]}
