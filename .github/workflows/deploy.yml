@@ -47,5 +47,5 @@ jobs:
           aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
           instance-ids: i-00361acfa83e97bfe
           working-directory: /home/ec2-user
-          command: "ls -la"
-          comment: "Run a shell script"
+          comment: Blue/Green Deployment executed by Github Actions
+          command: /bin/bash echo "Hello World"
