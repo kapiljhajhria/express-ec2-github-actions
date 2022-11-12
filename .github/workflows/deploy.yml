@@ -32,6 +32,12 @@ jobs:
       - name: install session manager plugin
         run: sudo apt-get install session-manager-plugin
 
+      - name: echo env vars
+        run: |
+          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_SECRET_ACCESS_KEY
+          echo $AWS_SESSION_TOKEN
+
       - name: AWS SSM Send-Command
         uses: peterkimzz/aws-ssm-send-command@master
         id: ssm
