@@ -53,8 +53,8 @@ jobs:
       - name: Run aws ssm send-command
         uses: nohmad/aws-ssm-send-command-action@master
         with:
-          aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
+          aws-access-key-id: $AWS_ACCESS_KEY_ID
+          aws-secret-access-key: $AWS_SECRET_ACCESS_KEY
           aws-region: ap-south-1
           targets: |
             [{"Key":"InstanceIds","Values":["i-00361acfa83e97bfe"]}]
