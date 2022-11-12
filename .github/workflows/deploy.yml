@@ -26,12 +26,11 @@ jobs:
       - name: aws sts
         run: aws sts get-caller-identity
 
-        # Step 3
-      - name: Create CodeDeploy Deployment
-        id: deploy
-        run: |
-          aws deploy create-deployment \
-          --application-name express-actions-code-deploy \
-          --deployment-group-name express-app-group \
-          --deployment-config-name CodeDeployDefault.OneAtATime \
-          --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+      - name: install aws cli
+        run: sudo apt-get install awscli
+
+      - name: install session manager plugin
+        run: sudo apt-get install session-manager-plugin
+
+      - name: connect to ec2 instance
+        run: aws ssm start-session --target i-00361acfa83e97bfe
