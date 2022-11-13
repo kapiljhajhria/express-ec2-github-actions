@@ -33,7 +33,7 @@ jobs:
         run: sudo -i -u ec2-user || echo "already root"
 
       - name: stop pm2 process
-        run: pm2 kill
+        run: sudo pm2 stop all
 
       - name: clear prod folder
         run: rm -rf /home/ec2-user/prod/*
@@ -45,4 +45,4 @@ jobs:
         run: cd /home/ec2-user/prod && ls
 
       - name: start app
-        run: cd /home/ec2-user/prod && sudo pm2 start app.js --name "runner-app" && pm2 save
+        run: cd /home/ec2-user/prod && sudo pm2 start app.js --name "runner-app" && sudo pm2 save
