@@ -24,14 +24,17 @@ jobs:
       - name: install dep
         run: npm install
 
-      - name: build node app
-        run: npm run build
+#      - name: build node app
+#        run: npm run build
+#
+#      - name: move moduels and build folder to prod
+#        run: mv build/* /home/ec2-user/prod && mv node_modules/* /home/ec2-user/prod
 
-      - name: move moduels and build folder to prod
-        run: mv build/* /home/ec2-user/prod && mv node_modules/* /home/ec2-user/prod
+      - name: move files to prod folder
+        run: mv * /home/ec2-user/prod
 
       - name: go to prod folder
         run: cd /home/ec2-user/prod
 
       - name: start app using pm2
-        run: pm2 start build/index.js --name "sockets" -- start && pm2 save
+        run: pm2 start app.js --name "express-app" -- start && pm2 save
