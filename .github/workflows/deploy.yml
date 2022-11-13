@@ -29,6 +29,11 @@ jobs:
 #
 #      - name: move moduels and build folder to prod
 #        run: mv build/* /home/ec2-user/prod && mv node_modules/* /home/ec2-user/prod
+      - name: stop pm2 process
+        run: pm2 stop all
+
+      - name: clear prod folder
+        run: rm -rf /home/ec2-user/prod/*
 
       - name: move files to prod folder
         run: mv * /home/ec2-user/prod
