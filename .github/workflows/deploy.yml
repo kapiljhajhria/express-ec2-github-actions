@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 on:
   push:
-    branches: [ actions ]
+    branches: [ runner ]
 
 permissions:
   id-token: write
@@ -9,60 +9,14 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       # Step 1
       - name: Checkout to repo
         uses: actions/checkout@v2
 
-      - name: echo env var before
-        run: |
-          echo ${{ env.AWS_ACCESS_KEY_ID }}
-          echo ${{ env.AWS_SECRET_ACCESS_KEY }}
+      - name: directory contents
+        run: ls -la
 
-        # Step 2
-      - name: configureawscredentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::286506837327:role/EC2Actions-Role-9JMZIQZVAB2I
-          role-session-name: samplerolesession
-          aws-region: ap-south-1
-
-      - name: aws sts
-        run: aws sts get-caller-identity
-
-      - name: install aws cli
-        run: sudo apt-get install awscli
-
-      - name: install session manager plugin
-        run: sudo apt-get install session-manager-plugin
-
-      - name: echo env vars
-        run: |
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_SECRET_ACCESS_KEY
-          echo $AWS_SESSION_TOKEN
-
-      - name: AWS SSM Send-Command
-        uses: peterkimzz/aws-ssm-send-command@master
-        id: ssm
-        with:
-          aws-region: ap-south-1
-          aws-access-key-id: ${env.AWS_ACCESS_KEY_ID}
-          aws-secret-access-key: ${env.AWS_SECRET_ACCESS_KEY}
-          instance-ids: i-00361acfa83e97bfe
-          working-directory: /home/ec2-user/prod
-          comment: Blue/Green Deployment executed by Github Actions
-          command: ls -l
-
-#      - name: Run aws ssm send-command
-#        uses: nohmad/aws-ssm-send-command-action@master
-#        with:
-#          aws-access-key-id: ${{env.AWS_ACCESS_KEY_ID}}
-#          aws-secret-access-key: ${{env.AWS_SECRET_ACCESS_KEY}}
-#          aws-region: ap-south-1
-#          targets: |
-#            [{"Key":"InstanceIds","Values":["i-00361acfa83e97bfe"]}]
-#          document-name: AWS-RunShellScript
-#          parameters: |
-#            {"commands":["uname -a"]}
+      - name: dir location
+        run: pwd
