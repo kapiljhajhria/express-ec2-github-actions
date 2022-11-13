@@ -42,7 +42,7 @@ jobs:
         run: mv * /home/ec2-user/prod
 
       - name: go to prod folder
-        run: cd /home/ec2-user/prod
+        run: cd /home/ec2-user/prod && ls
 
       - name: start app
-        run: pm2 start app.js --name "runner-app" -- start
+        run: cd /home/ec2-user/prod && pm2 start app.js --name "runner-app"
